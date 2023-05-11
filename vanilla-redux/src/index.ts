@@ -1,11 +1,14 @@
 import { createStore } from 'redux';
 
-const add = document.getElementById('add');
-const minus = document.getElementById('minus');
-const number = document.querySelector('span');
+type action = {
+  type: 'ADD' | 'MINUS';
+};
 
-const countModifier = (count = 0, action) => {
-  // if 문으로 구성한 type 별 동작 방식을 switch 문으로 변경
+const add = document.getElementById('add') as HTMLButtonElement;
+const minus = document.getElementById('minus') as HTMLButtonElement;
+const number = document.querySelector('span') as HTMLSpanElement;
+
+const countModifier = (count = 0, action: action) => {
   switch (action.type) {
     case 'ADD':
       return count + 1;
@@ -19,7 +22,7 @@ const countStore = createStore(countModifier);
 
 const handleChange = () => {
   console.log(countStore.getState());
-  number.textContent = countStore.getState();
+  number.textContent = countStore.getState().toString();
 };
 
 countStore.subscribe(handleChange);
